@@ -13,12 +13,12 @@ router.get('/messages',(req,res,next)=>{
     })
 });
 
-router.get('/messages/:username',(req,res,next)=>{
-    Message.getByUsername(req.params.username)
-    .then(messageFound=>{
-        return res.status(200).json(messageFound);
-    })
-});
+// router.get('/messages/:username',(req,res,next)=>{
+//     Message.getByUsername(req.params.username)
+//     .then(messageFound=>{
+//         return res.status(200).json(messageFound);
+//     })
+// });
 
 router.post('/message',(req,res,next)=>{
     let newMsg=new Message({
