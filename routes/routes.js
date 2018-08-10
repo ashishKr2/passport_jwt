@@ -122,4 +122,19 @@ var token;
 });
 });
 
+
+router.post('/mesg',(req,res,next)=>{
+    let newMsg=new Message({
+        username:req.body.username 
+});
+
+User.getByUsern(newMsg.username,function(err,user){
+    if(err) throw err;
+   if(!user){
+       return res.json({success:false,message:'no user found'});
+   }
+
+});
+});
+
 module.exports=router;
