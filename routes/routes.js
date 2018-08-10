@@ -20,23 +20,7 @@ router.get('/messages',(req,res,next)=>{
 //     })
 // });
 
-router.post('/message',(req,res,next)=>{
-    let newMsg=new Message({
-        msg:req.body.msg,
-        username:req.body.username
-    });
-    // if(username.){
-        newMsg.save((err,message)=>{
-            if(err){
-                res.json({msg: 'Failes to send message'});
-            }
-            else{
-                res.json({msg: 'Message sent successfully'});
-            }
-        });
-   //}
-    
-});
+
 
 router.delete('/message/:id',(req,res,next)=>{
     Message.remove({_id:req.params.id},function(err,result){
@@ -110,5 +94,32 @@ var token;
         res.redirect('/');
        
     });
+
+
+    router.post('/message',(req,res,next)=>{
+        let newMsg=new Message({
+            msg:req.body.msg,
+            username:req.body.username 
+    });
+    
+    User.getByUsern(newMsg.username,function(err,user){
+        if(err) throw err;
+       if(!user){
+           return res.json({success:false,message:'no user found'});
+       }
+       else{
+        newMsg.save((err,message)=>{
+            if(err){
+                res.json({msg: 'Failes to send message'});
+            }
+            else{
+                res.json({msg: 'Message sent successfully'});
+            }
+        });
+    }
+
+
+});
+});
 
 module.exports=router;

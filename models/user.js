@@ -48,6 +48,10 @@ module.exports.getUserByEmail=function(email,cb){
     User.findOne({email:email},cb);
 }
 
+module.exports.getByUsern=function(username,cb){
+    User.findOne({username:username},cb);
+}
+
 module.exports.createUser=function(newUser,cb){
     bcrypt.genSalt(10,function(err,salt){
        //password with incrypted hash value
