@@ -13,18 +13,29 @@ router.get('/messages',(req,res,next)=>{
     })
 });
 
+router.get('/messages/:username',(req,res,next)=>{
+    Message.getByUsername(req.params.username)
+    .then(messageFound=>{
+        return res.status(200).json(messageFound);
+    })
+});
+
 router.post('/message',(req,res,next)=>{
     let newMsg=new Message({
-        msg:req.body.msg
+        msg:req.body.msg,
+        username:req.body.username
     });
-    newMsg.save((err,message)=>{
-        if(err){
-            res.json({msg: 'Failes to send message'});
-        }
-        else{
-            res.json({msg: 'Message sent successfully'});
-        }
-    });
+    // if(username.){
+        newMsg.save((err,message)=>{
+            if(err){
+                res.json({msg: 'Failes to send message'});
+            }
+            else{
+                res.json({msg: 'Message sent successfully'});
+            }
+        });
+   //}
+    
 });
 
 router.delete('/message/:id',(req,res,next)=>{
