@@ -45,14 +45,34 @@ var token;
             gender:req.body.gender,
             password:req.body.password,
         });
-        User.createUser(newUser,function(err,user){
-            if(err){
-                res.json({success:false,message:'useer is not registered'});
-            }
-            else{
-                res.json({success:true,message:'user success'});
-            }
+        var un=new User({
+            username:req.body.username,
         });
+            User.getByUsern(un.username,function(err,user){
+                if(err) throw err;
+                if(user){
+                    return res.json({success:false,message:'Choose another username'});
+                }
+                else{
+                    User.createUser(newUser,function(err,user){
+                        if(err){
+                            res.json({success:false,message:'useer is not registered'});
+                        }
+                        else{
+                            res.json({success:true,message:'user success'});
+                        }
+                    });
+                }
+            })
+
+        // User.createUser(newUser,function(err,user){
+        //     if(err){
+        //         res.json({success:false,message:'useer is not registered'});
+        //     }
+        //     else{
+        //         res.json({success:true,message:'user success'});
+        //     }
+        // });
     });
     router.post('/login',function(req,res){
         var email=req.body.email;

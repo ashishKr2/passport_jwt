@@ -9,7 +9,7 @@ var userSchema=mongoose.Schema({
     username: {
         required: true,
         type: String,
-        unique:true
+        unique:true,
     },
     email: {
         required: true,

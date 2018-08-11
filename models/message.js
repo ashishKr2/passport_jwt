@@ -8,7 +8,8 @@ const MessageSchema=mongoose.Schema({
     },
     username:{
         type:String,
-        required:true
+        required:true,
+        
         
     }
 });
